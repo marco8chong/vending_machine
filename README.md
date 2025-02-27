@@ -62,6 +62,6 @@ vending_machine.store_coin(5, 100)
 vending_machine.store_coin(10, 100)
 
 # prepare water for sale
-vending_machine.add_inventory("plain_water", 100)
-vending_machine.add_inventory("fizzy_water", 100)
+vending_machine.add_inventory("plain_water", 100.0)
+vending_machine.add_inventory("fizzy_water", 100.0)
 ```

@@ -33,8 +33,8 @@ if __name__ == "__main__":
     vending_machine.store_coin(10, 100)
 
     # prepare water for sale
-    vending_machine.add_inventory("plain_water", 100)
-    vending_machine.add_inventory("fizzy_water", 100)
+    vending_machine.add_inventory("plain_water", 100.0)
+    vending_machine.add_inventory("fizzy_water", 100.0)
 
     user_input = ""
     while user_input != "q":
@@ -47,7 +47,7 @@ if __name__ == "__main__":
         print(f"m1: Purchase mixture {vending_machine.get_supported_mixture(1)}")
         print(f"m2: Purchase mixture {vending_machine.get_supported_mixture(2)}")
         print(f"m3: Purchase mixture {vending_machine.get_supported_mixture(3)}")
-        print(f"r: refund")
+        print(f"r: Refund")
         print(f"q: Quit")
         user_input = input("Please enter your choice: ")
 
