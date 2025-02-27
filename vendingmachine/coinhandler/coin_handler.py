@@ -32,9 +32,23 @@ class CoinHandler:
         return dict(self._stored_coins)
     
     @property
+    def stored_coins_amount(self):
+        stored_coins_amount = 0.0
+        for key in self._stored_coins:
+            stored_coins_amount += key * self._stored_coins[key]
+        return stored_coins_amount
+    
+    @property
     def inserted_coins(self):
         return dict(self._inserted_coins)
     
+    @property
+    def inserted_coins_amount(self):
+        inserted_coins_amount = 0.0
+        for key in self._inserted_coins:
+            inserted_coins_amount += key * self._inserted_coins[key]
+        return inserted_coins_amount
+
     @property
     def total_coins(self):
         total_coins = dict(self._stored_coins)
@@ -85,6 +99,10 @@ class CoinHandler:
             self._inserted_coins[coin] = 0
 
     def resolve_change_coins_combination(self, amount: float):
+
+        if amount <= 0.0:
+            return []
+
         coins_available = self.total_coins
 
         coin_list = []
@@ -135,3 +153,6 @@ class CoinHandler:
         else:
             return []
 
+    def change(self, change_coins_combination: list):
+        for coin in change_coins_combination:
+            self._stored_coins[coin] -= 1
