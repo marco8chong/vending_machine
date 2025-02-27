@@ -7,7 +7,7 @@ inserting and changing coins.
 Author: Marco Chong (marco@marcochong.com)
 """
 
-import math
+from decimal import Decimal
 
 class CoinHandler:
 
@@ -33,7 +33,7 @@ class CoinHandler:
     
     @property
     def stored_coins_amount(self):
-        stored_coins_amount = 0.0
+        stored_coins_amount = Decimal(str(0.0))
         for key in self._stored_coins:
             stored_coins_amount += key * self._stored_coins[key]
         return stored_coins_amount
@@ -44,7 +44,7 @@ class CoinHandler:
     
     @property
     def inserted_coins_amount(self):
-        inserted_coins_amount = 0.0
+        inserted_coins_amount = Decimal(str(0.0))
         for key in self._inserted_coins:
             inserted_coins_amount += key * self._inserted_coins[key]
         return inserted_coins_amount
@@ -58,7 +58,7 @@ class CoinHandler:
 
         return total_coins
 
-    def add_supported_coins(self, coin: float):
+    def add_supported_coins(self, coin: Decimal):
         if coin not in self._stored_coins:
             self._stored_coins[coin] = 0
         
@@ -69,7 +69,7 @@ class CoinHandler:
         self._stored_coins = {}
         self._inserted_coins = {}
 
-    def insert_coin(self, coin: float, count = int):
+    def insert_coin(self, coin: Decimal, count = int):
         if count > 0:
             if coin in self._inserted_coins:
                 self._inserted_coins[coin] += count
@@ -79,7 +79,7 @@ class CoinHandler:
         else:
             return False
         
-    def store_coin(self, coin: float, count = int):
+    def store_coin(self, coin: Decimal, count = int):
         if count > 0:
             if coin in self._stored_coins:
                 self._stored_coins[coin] += count
@@ -98,10 +98,10 @@ class CoinHandler:
             self._stored_coins[coin] += self._inserted_coins[coin]
             self._inserted_coins[coin] = 0
 
-    def resolve_change_coins_combination(self, amount: float):
+    def resolve_change_coins_combination(self, amount: Decimal):
 
         # terminate if no change is needed
-        if amount <= 0.0:
+        if amount <= Decimal(str(0.0)):
             return []
 
         # the calculation is based on both stored and inserted coins

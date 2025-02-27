@@ -6,25 +6,28 @@ This script creates and runs a vending machine.
 Author: Marco Chong (marco@marcochong.com)
 """
 
+from decimal import Decimal, getcontext
+
 from vendingmachine.vending_machine_ascii_ui import VendingMachineAsciiUi
 
 if __name__ == "__main__":
+
     vending_machine = VendingMachineAsciiUi()
 
     # define the coins supported
-    vending_machine.add_supported_coins(1.0)
-    vending_machine.add_supported_coins(2.0)
-    vending_machine.add_supported_coins(5.0)
-    vending_machine.add_supported_coins(10.0)
+    vending_machine.add_supported_coins(Decimal(str(1.0)))
+    vending_machine.add_supported_coins(Decimal(str(2.0)))
+    vending_machine.add_supported_coins(Decimal(str(5.0)))
+    vending_machine.add_supported_coins(Decimal(str(10.0)))
 
     # set the water prices
-    vending_machine.set_inventory_price("plain_water", 30.0)
-    vending_machine.set_inventory_price("fizzy_water", 35.0)
+    vending_machine.set_inventory_price("plain_water", Decimal(str(30.0)))
+    vending_machine.set_inventory_price("fizzy_water", Decimal(str(35.0)))
 
     # set the water mixtures
-    vending_machine.add_supported_mixture(1, {"plain_water": 0.4, "fizzy_water":  0.6})
-    vending_machine.add_supported_mixture(2, {"plain_water": 0.5, "fizzy_water":  0.5})
-    vending_machine.add_supported_mixture(3, {"plain_water": 0.6, "fizzy_water":  0.4})
+    vending_machine.add_supported_mixture(1, {"plain_water": Decimal(str(0.4)), "fizzy_water":  Decimal(str(0.6))})
+    vending_machine.add_supported_mixture(2, {"plain_water": Decimal(str(0.5)), "fizzy_water":  Decimal(str(0.5))})
+    vending_machine.add_supported_mixture(3, {"plain_water": Decimal(str(0.6)), "fizzy_water":  Decimal(str(0.4))})
 
     # prepare coins for change
     vending_machine.store_coin(1, 100)
@@ -33,8 +36,8 @@ if __name__ == "__main__":
     vending_machine.store_coin(10, 100)
 
     # prepare water for sale
-    vending_machine.add_inventory("plain_water", 100.0)
-    vending_machine.add_inventory("fizzy_water", 100.0)
+    vending_machine.add_inventory("plain_water", Decimal(str(100.0)))
+    vending_machine.add_inventory("fizzy_water", Decimal(str(100.0)))
 
     user_input = ""
     while user_input != "q":

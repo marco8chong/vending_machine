@@ -6,6 +6,8 @@ This script implements an inventory handler for vending machine that tracking in
 Author: Marco Chong (marco@marcochong.com)
 """
 
+from decimal import Decimal
+
 class InventoryHandler:
 
     _inventory_price = {}
@@ -26,21 +28,21 @@ class InventoryHandler:
         if inventory_name in self._inventory_price:
             return self._inventory_price[inventory_name]
         else:
-            return 0.0
+            return Decimal(str(0.0))
 
-    def set_inventory_price(self, inventory_name: str, price: float):
+    def set_inventory_price(self, inventory_name: str, price: Decimal):
         self._inventory_price[inventory_name] = price
 
     def clear_inventory_price(self):
         self._inventory_price = {}
 
-    def add_inventory(self, inventory_name: str, count: float):
+    def add_inventory(self, inventory_name: str, count: Decimal):
         if inventory_name in self._inventory:
             self._inventory[inventory_name] += count
         else:
             self._inventory[inventory_name] = count
 
-    def consume_inventory(self, inventory_name: str, count: float):
+    def consume_inventory(self, inventory_name: str, count: Decimal):
         success = False
         
         if inventory_name in self._inventory:
@@ -54,7 +56,7 @@ class InventoryHandler:
         if inventory_name in self._inventory:
             return self._inventory[inventory_name]
         else:
-            return 0
+            return Decimal(str(0.0))
         
     def check_inventories(self, inventory_dict: dict):
         success = True
@@ -75,4 +77,4 @@ class InventoryHandler:
 
     def clear_inventory(self, inventory_name: str):
         if inventory_name in self._inventory:
-            self._inventory[inventory_name] = 0
+            self._inventory[inventory_name] = Decimal(str(0.0))

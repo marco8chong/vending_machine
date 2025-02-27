@@ -7,7 +7,7 @@ It tracks inventory, accepts coins, provides change, and allows user interaction
 Author: Marco Chong (marco@marcochong.com)
 """
 
-import math
+from decimal import ROUND_CEILING, Decimal
 
 from vendingmachine.inventoryhandler.inventory_handler import InventoryHandler
 from vendingmachine.coinhandler.coin_handler import CoinHandler
@@ -23,14 +23,14 @@ class VendingMachine:
         pass
 
     # coin handler
-    def add_supported_coins(self, coin: float):
-        self._coin_handler.add_supported_coins(float(coin))
+    def add_supported_coins(self, coin: Decimal):
+        self._coin_handler.add_supported_coins(Decimal(coin))
 
-    def insert_coin(self, coin: float, count: int = 1):
-        return self._coin_handler.insert_coin(float(coin), int(count))
+    def insert_coin(self, coin: Decimal, count: int = 1):
+        return self._coin_handler.insert_coin(Decimal(coin), int(count))
     
-    def store_coin(self, coin: float, count: int = 1):
-        return self._coin_handler.store_coin(float(coin), int(count))
+    def store_coin(self, coin: Decimal, count: int = 1):
+        return self._coin_handler.store_coin(Decimal(coin), int(count))
 
     def get_inserted_coins_amount(self):
         return self._coin_handler.inserted_coins_amount
@@ -45,14 +45,14 @@ class VendingMachine:
         self._coin_handler.return_inserted_coins()
 
     # inventory handler
-    def set_inventory_price(self, inventory_name: str, price: float):
-        self._inventory_handler.set_inventory_price(str(inventory_name), float(price))
+    def set_inventory_price(self, inventory_name: str, price: Decimal):
+        self._inventory_handler.set_inventory_price(str(inventory_name), Decimal(price))
 
     def clear_inventory_price(self):
         self._inventory_handler.clear_inventory_price()
     
-    def add_inventory(self, inventory_name: str, count: float):
-        self._inventory_handler.add_inventory(str(inventory_name), float(count))
+    def add_inventory(self, inventory_name: str, count: Decimal):
+        self._inventory_handler.add_inventory(str(inventory_name), Decimal(count))
 
     def clear_inventory(self):
         self._inventory_handler.clear_all_inventory()
@@ -77,18 +77,18 @@ class VendingMachine:
 
             if have_stock:
                 # calculate purchase price
-                purchase_amount = 0.0
+                purchase_amount = Decimal(str(0.0))
                 for water_key in mixture_selected:
                     # price = inventory price * mixture proportion
                     purchase_amount += self._inventory_handler.get_inventory_price(water_key) * mixture_selected[water_key]    
-                purchase_amount = float(math.ceil(purchase_amount))
+                purchase_amount = Decimal(purchase_amount.to_integral_value(rounding=ROUND_CEILING))
 
                 # check inserted coins amount
                 if self._coin_handler.inserted_coins_amount >= purchase_amount:
                     change_coin_amount = self._coin_handler.inserted_coins_amount - purchase_amount
                     change_coin_combination = self._coin_handler.resolve_change_coins_combination(change_coin_amount)
 
-                    no_change = (change_coin_amount > 0.0) and (not change_coin_combination) 
+                    no_change = (change_coin_amount > Decimal(str(0.0))) and (not change_coin_combination) 
 
                     if not no_change:
                     # store the inserted coins
