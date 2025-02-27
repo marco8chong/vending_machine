@@ -26,13 +26,13 @@ if __name__ == "__main__":
     vending_machine.add_supported_mixture(2, {"plain_water": 0.5, "fizzy_water":  0.5})
     vending_machine.add_supported_mixture(3, {"plain_water": 0.6, "fizzy_water":  0.4})
 
-    # preparing coins for change
+    # prepare coins for change
     vending_machine.store_coin(1, 100)
     vending_machine.store_coin(2, 100)
     vending_machine.store_coin(5, 100)
     vending_machine.store_coin(10, 100)
 
-    # preparing water for sale
+    # prepare water for sale
     vending_machine.add_inventory("plain_water", 100)
     vending_machine.add_inventory("fizzy_water", 100)
 
