@@ -67,6 +67,8 @@ if __name__ == "__main__":
             print(vending_machine.purchase_water(3))
         elif user_input == "r":
             vending_machine.return_inserted_coins()
+        elif user_input == "q":
+            pass
         else:
             print("Incorrect input.")
 
