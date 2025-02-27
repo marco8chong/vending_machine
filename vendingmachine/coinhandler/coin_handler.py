@@ -100,9 +100,11 @@ class CoinHandler:
 
     def resolve_change_coins_combination(self, amount: float):
 
+        # terminate if no change is needed
         if amount <= 0.0:
             return []
 
+        # the calculation is based on both stored and inserted coins
         coins_available = self.total_coins
 
         coin_list = []
@@ -112,8 +114,10 @@ class CoinHandler:
                     coin_list.append(coin_key)
         coin_list.sort(reverse=True)
 
+        # for detecting the cases without a solution
         self._no_change_solution = False
         
+        # recursive function to find the best combination for change
         def search_combination(index, last_coin_used, last_amount_remain):
 
             if self._no_change_solution:
@@ -154,5 +158,6 @@ class CoinHandler:
             return []
 
     def change(self, change_coins_combination: list):
+        # excluding the coins for change from the stored coins
         for coin in change_coins_combination:
             self._stored_coins[coin] -= 1
